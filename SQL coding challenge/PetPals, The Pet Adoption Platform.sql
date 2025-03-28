@@ -89,9 +89,17 @@ from pets
 where available_for_adoption=1;
 
 --  query - 6
-select participantname,participanttype
-from participants where eventid=3;
-
+delimiter //
+create procedure showParticipants(in eventId int)
+begin
+    select p.participantname,p.participanttype
+    from participants p
+    join adoptionevents e
+    on e.eventid=eventId
+    where e.eventid=eventId
+end //
+delimiter ;
+CALL showParticipants(1);
 
 -- query - 7
 delimiter //
